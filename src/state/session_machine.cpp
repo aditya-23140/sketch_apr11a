@@ -27,8 +27,8 @@ void SessionMachine::_transitionTo(SessionState next) {
 
     // --- ARDUINO HARDWARE BRIDGE ---
     if (next == SessionState::FOCUS || next == SessionState::HYPERFOCUS) {
-        MotorBridge::getInstance().sendStart();    // Motor spins forward
-        Serial.println("[Hardware] Sent START to Arduino");
+        MotorBridge::getInstance().sendStart(_plannedSec);  // Send duration so Arduino calculates speed
+        Serial.println("[Hardware] Sent START with duration to Arduino");
     }
     else if (next == SessionState::COMPLETED || next == SessionState::IDLE) {
         MotorBridge::getInstance().sendStop();     // Motor REVERSES to start

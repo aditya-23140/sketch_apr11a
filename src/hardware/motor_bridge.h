@@ -63,10 +63,12 @@ public:
         }
     }
 
-    /** Send <START> — motor begins forward rotation */
-    void sendStart() {
-        Serial2.print("<START>");
-        Serial.println("[Bridge] Sent <START>");
+    /** Send <START:seconds> — motor begins forward rotation, timed to session */
+    void sendStart(int durationSec) {
+        Serial2.print("<START:");
+        Serial2.print(durationSec);
+        Serial2.print(">");
+        Serial.printf("[Bridge] Sent <START:%d>\n", durationSec);
     }
 
     /** Send <PAUSE> — motor stops in place, holds position */
